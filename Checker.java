@@ -23,6 +23,7 @@ package com.uudaddy;
  * .O..
  *
  * 5x5  left 0; right 1
+ * ?????
  * ...X.
  * .X.X.
  * O....
@@ -53,13 +54,19 @@ public class Checker {
     static Location aPlayer = new Location();
     static ArrayList<Location> bPlayers=new ArrayList<Location>();
 
-    // {{'.','X','.','X'},{'.','.','.','.'},{'X','.','X','.'},{'.','O','.','.'}}
+    static ArrayList <char[]>checkerBoard_2=new ArrayList<char[]>();
+    static Location aPlayer_2 = new Location();
+    static ArrayList<Location> bPlayers_2=new ArrayList<Location>();
+
+    // ".X.X" "...." "X.X." ".O.."
+    // ".X.X..", "XX.X..", "...X..", ".X.X..", "..O...", "..X..."
     public static void main (String[] args){
         // initialize board
         int numberOfArgs = args.length;
         System.out.println("numberOfArgs=" + numberOfArgs);
         for(int ii=0; ii<numberOfArgs;ii++) {
-            checkerBoard.add(args[ii].toCharArray()); // this does not work...
+            checkerBoard.add(args[ii].toCharArray());
+            checkerBoard_2.add(args[ii].toCharArray());
         }
         
         // read the board   => populate aPlayer and bPlayers
@@ -80,6 +87,8 @@ public class Checker {
                 {
                     aPlayer.row=row;
                     aPlayer.column=column;
+                    aPlayer_2.row=row;
+                    aPlayer_2.column=column;
                 }
                 else if(obj[column]=='X')
                 {
@@ -87,12 +96,18 @@ public class Checker {
                     bPlayer.row=row;
                     bPlayer.column=column;
                     bPlayers.add(bPlayer);
+
+                    Location bPlayer_2 = new Location();
+                    bPlayer_2.row=row;
+                    bPlayer_2.column=column;
+                    bPlayers_2.add(bPlayer);
                 }
             }
             row++;
         }
 
-        aPlayer.print();
+        //aPlayer.print();
+        //aPlayer_2.print();
         // find the maximum steps aPlayer can go
         int steps_1=0;
         while(  canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard) ) {
@@ -107,20 +122,22 @@ public class Checker {
                 steps_1++;
             }
         }
+        System.out.println("Steps_1: "+ (steps_1) ) ;
 
         int steps_2=0;
-        while(  canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard) ) {
-            if (canMoveTopRight(aPlayer, bPlayers, checkerBoard)) {
-                moveRight(aPlayer, bPlayers, checkerBoard);
-                aPlayer.print();
+        while(  canMoveTopLeft(aPlayer_2, bPlayers_2, checkerBoard_2) || canMoveTopRight(aPlayer_2, bPlayers_2, checkerBoard_2) ) {
+            if (canMoveTopRight(aPlayer_2, bPlayers_2, checkerBoard_2)) {
+                moveRight(aPlayer_2, bPlayers_2, checkerBoard_2);
+                aPlayer_2.print();
                 steps_2++;
             }
-            if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
-                moveLeft(aPlayer, bPlayers, checkerBoard);
-                aPlayer.print();
+            if (canMoveTopLeft(aPlayer_2, bPlayers_2, checkerBoard_2)) {
+                moveLeft(aPlayer_2, bPlayers_2, checkerBoard_2);
+                aPlayer_2.print();
                 steps_2++;
             }
         }
+        System.out.println("Steps_2: "+ (steps_2) ) ;
         System.out.println("Steps: "+ (steps_1>=steps_2?steps_1:steps_2) ) ;
     }
 
@@ -132,11 +149,14 @@ public class Checker {
         //
         if( (aPlayer.row-2)>=0 && (aPlayer.column-2)>=0 )
         {
+            //System.out.println("canMoveTopLeft: in boundary");
             if( ((checkerBoard.get(aPlayer.row-1))[aPlayer.column-1])=='X')
             {
+                //System.out.println("canMoveTopLeft: find X, checking . ");
+                //System.out.println((checkerBoard.get(aPlayer.row-2))[aPlayer.column+2]);
                 if( ((checkerBoard.get(aPlayer.row-2))[aPlayer.column-2])=='.')
                 {
-                     System.out.println("canMoveTopLeft");
+                     //System.out.println("canMoveTopLeft");
                      return true;
                 }
             }
@@ -171,7 +191,7 @@ public class Checker {
     }
 
     private static void moveLeft(Location aPlayer, ArrayList<Location> bPlayers, ArrayList<char[]> checkerBoard) {
-        System.out.println("canMoveTopLeft: ");
+        //System.out.println("canMoveTopLeft: ");
         Location loc=new Location();
         loc.row=aPlayer.row-1;
         loc.column=aPlayer.column-1;
@@ -186,7 +206,7 @@ public class Checker {
     }
 
     private static void moveRight(Location aPlayer, ArrayList<Location> bPlayers, ArrayList<char[]> checkerBoard) {
-        System.out.println("canMoveTopRight: ");
+        //System.out.println("canMoveTopRight: ");
         Location loc=new Location();
         loc.row=aPlayer.row-1;
         loc.column=aPlayer.column+1;
