@@ -25,13 +25,13 @@ import java.util.*;
 
 public class Chocolates {
     // this is the original test case, 4 x 5
-    static int choArr[][] = {{6, 8, 9, 7, 4}, {0, 0, 8, 0, 5}, {5, 7, 4, 5, 10}, {4, 2, 0, 6, 9}};
+    //static int choArr[][] = {{6, 8, 9, 7, 4}, {0, 0, 8, 0, 5}, {5, 7, 4, 5, 10}, {4, 2, 0, 6, 9}};
 
     // test case 2, 5 x 6
     //static int choArr[][] = {{6, 8, 9, 7, 4, 1},{0, 0, 8, 0, 5, 2},{5, 7, 4, 5, 10, 3},{4, 2, 0, 6, 9, 4},{4, 2, 0, 6, 9, 4}};
 
     // test case 3, 5 x 5
-    //static int choArr[][] = {{6, 8, 9, 7, 4},{0, 0, 8, 0, 5},{5, 7, 4, 5, 10},{4, 2, 0, 6, 9},{4, 2, 0, 6, 9}};
+    static int choArr[][] = {{6, 8, 9, 7, 4},{0, 0, 8, 0, 5},{5, 7, 4, 9, 10},{4, 2, 0, 6, 9},{4, 2, 0, 6, 9}};
 
     // test case 4, 6 x 6
     //static int choArr[][] = {{6, 8, 9, 7, 4, 1},{0, 0, 8, 0, 5, 2},{5, 7, 4, 5, 10, 3},{4, 2, 0, 6, 9, 4},{4, 2, 0, 6, 9, 4}, {4, 2, 0, 6, 9, 4}};
@@ -66,12 +66,7 @@ public class Chocolates {
 
         System.out.println("The chocolate array values are:");
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.printf("%5d", choArr[i][j]);
-             }
-             System.out.println();
-        }
+        print2DArray();
 
         //check chocalate Arr row and col length;
         System.out.println("-----------------------------");
@@ -88,15 +83,35 @@ public class Chocolates {
             if(baby.column-1>=0) {
                 myIntList.add(new Integer(choArr[baby.row][baby.column - 1]));
             }
+            else
+            {
+                myIntList.add(0);
+            }
+
             if(baby.column+1<=col-1) {
                 myIntList.add(new Integer(choArr[baby.row][baby.column + 1]));
             }
+            else
+            {
+                myIntList.add(0);
+            }
+
             if(baby.row-1>=0) {
                 myIntList.add(new Integer(choArr[baby.row-1][baby.column]));
             }
+            else
+            {
+                myIntList.add(0);
+            }
+
             if(baby.row+1<=row-1) {
                 myIntList.add(new Integer(choArr[baby.row+1][baby.column]));
             }
+            else
+            {
+                myIntList.add(0);
+            }
+            
             Integer maxInt = Collections.max(myIntList);
 
             int position = -1;
@@ -128,10 +143,20 @@ public class Chocolates {
             }
 
             System.out.println("baby position: row=" + baby.row + "; column=" +baby.column + ". Counts of chocolates: " + counts_of_chocolates);
+            print2DArray();
         }
 
         System.out.println("Total_chocolates_eaten:" + total_chocolates_eaten);
     }    // end of main
+
+    private static void print2DArray() {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.printf("%5d", choArr[i][j]);
+             }
+             System.out.println();
+        }
+    }
 
     private static boolean canMove()
     {
