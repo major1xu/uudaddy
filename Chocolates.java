@@ -82,9 +82,8 @@ public class Chocolates {
         System.out.println("baby position: row=" + baby.row + "; column=" +baby.column + ". Counts of chocolates: " + choArr[baby.row][baby.column]);
         while(canMove())
         {
-             // find largest number in the neighbor (left, right, up and down)
-            // here I am going to compare the four numbers
-            // combination of baby_row_1 / baby_row_2 and  baby_column_1 / baby_column_2
+            // find largest number in the neighbor (left, right, up and down)
+            // here I am going to compare the four numbers: left, right, up and down
             ArrayList<Integer> myIntList = new ArrayList<Integer>();
             if(baby.column-1>=0) {
                 myIntList.add(new Integer(choArr[baby.row][baby.column - 1]));
