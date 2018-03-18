@@ -55,10 +55,13 @@ public class Checker {
     static Location aPlayer = new Location();
     static ArrayList<Location> bPlayers=new ArrayList<Location>();
 
+    // future extension: possible to try all the routes, although the maxium is predetermined due to the rules
     static ArrayList <char[]>currentBoard=new ArrayList<char[]>();
 
-    // ".X.X" "...." "X.X." ".O.."                       4x4
-    // ".X.X..", "XX.X..", "...X..", ".X.X..", "..O...", "..X..."      6x6
+    // ".X.X" "...." "X.X." ".O.."                       4x4      =>1
+    // "XXXXX", "...X.", ".X.X.", "O....", ".X..."       5x5       => 1
+    // "XXXXX", "...X.", ".X.X.", "X....", ".O..."                     0
+    // ".X.X..", "XX.X..", "...X..", ".X.X..", "..O...", "..X..."      6x6   =>2
     public static void main (String[] args){
         // initialize board
         int numberOfArgs = args.length;
@@ -70,28 +73,28 @@ public class Checker {
         System.out.println("checkerBoard.size()=" + checkerBoard.size());   // assume this is square, if not we need more handling
 
         // note the algorithm below did not try all the options. But it does check whether we get the maximum steps.
-        int steps_1=0;
+        int steps=0;
         initializePlayers();
 
         int max_steps=(aPlayer.row)/2;
         System.out.println("max_steps: "+ (max_steps) ) ;
-        while(steps_1<max_steps)
+        if(steps<max_steps)
         {
-            while(canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard))
+            while(steps<max_steps && (canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard)))
             {
                 if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
                     moveLeft(aPlayer, bPlayers, checkerBoard);
                     aPlayer.print();
-                    steps_1++;
+                    steps++;
                 }
                 if (canMoveTopRight(aPlayer, bPlayers, checkerBoard)) {
                     moveRight(aPlayer, bPlayers, checkerBoard);
                     aPlayer.print();
-                    steps_1++;
+                    steps++;
                 }
-            }
-        }
-        System.out.println("Steps_1: "+ (steps_1) ) ;
+            }   // end of while
+        }  // end of if
+        System.out.println("Steps: "+ steps ) ;
     }
 
     private static void initializePlayers() {
