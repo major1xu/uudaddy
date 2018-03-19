@@ -30,13 +30,13 @@ package com.uudaddy;
  * .X...
  *
  * 6x6
- * 1) left 2; right 2
+ * 1) left 1; right 2
  *  .X.X..
  *  XX.X..
  *  ...X..
  *  .X.X..
+ *  .X.X..
  *  ..O...
- *  ..X...
  * 2) left 0; right 2
  *  .X.X..
  *  .X.X..
@@ -52,6 +52,26 @@ import java.util.*;
 public class Checker {
     // use an arrayList (two dimensional array)
     static ArrayList <char[]>checkerBoard=new ArrayList<char[]>();
+
+    static class Location {
+        public int row;
+        public int column;
+
+        public void Location()
+        {}
+
+        public void Location(int a, int b)
+        {
+            row=a;
+            column=b;
+        }
+
+        public void print()
+        {
+            System.out.println("row= "+row +" column= "+column);
+        }
+
+    }
     static Location aPlayer = new Location();
     static ArrayList<Location> bPlayers=new ArrayList<Location>();
 
@@ -60,7 +80,8 @@ public class Checker {
 
     // ".X.X" "...." "X.X." ".O.."                       4x4      =>1
     // "XXXXX", "...X.", ".X.X.", "O....", ".X..."       5x5       => 1
-    // "XXXXX", "...X.", ".X.X.", "X....", ".O..."                     0
+    // "XXXXX", "...X.", ".X.X.", "X....", ".O..."       5x5 modify from above a bit =>  0
+    // ".X.X..", "XX.X..", "...X..", ".X.X..", ".X.X..", "..O..."  2 (right)  This expose the limitation of the algorithm, stuck in left
     // ".X.X..", "XX.X..", "...X..", ".X.X..", "..O...", "..X..."      6x6   =>2
     public static void main (String[] args){
         // initialize board
@@ -80,6 +101,8 @@ public class Checker {
         System.out.println("max_steps: "+ (max_steps) ) ;
         if(steps<max_steps)
         {
+            // how to make sure we always try the largest capture...besides the max_steps below...the issue here is the aPlayer
+            // got stuck in one path (did not have opportunity to try other paths)
             while(steps<max_steps && (canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard)))
             {
                 if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
