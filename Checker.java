@@ -45,6 +45,14 @@ package com.uudaddy;
  *  .X.X..
  *  O.....
  *
+ * 7x7  left 3; right 3
+ *  ...X...
+ *  .XX.XX.
+ *  .X.....
+ *  ..X.X..
+ *  ...X...
+ *  ..X.X..
+ *  ...O...
  */
 
 import java.util.*;
@@ -75,7 +83,7 @@ public class Checker {
     static Location aPlayer = new Location();
     static ArrayList<Location> bPlayers=new ArrayList<Location>();
 
-    // future extension: possible to try all the routes, although the maxium is predetermined due to the rules
+    // future extension: possible to try all the routes, although the maximum is predetermined due to the rules
     static ArrayList <char[]>currentBoard=new ArrayList<char[]>();
 
     // ".X.X" "...." "X.X." ".O.."                       4x4      =>1
@@ -83,6 +91,7 @@ public class Checker {
     // "XXXXX", "...X.", ".X.X.", "X....", ".O..."       5x5 modify from above a bit =>  0
     // ".X.X..", "XX.X..", "...X..", ".X.X..", ".X.X..", "..O..."  2 (right)  This expose the limitation of the algorithm, stuck in left
     // ".X.X..", "XX.X..", "...X..", ".X.X..", "..O...", "..X..."      6x6   =>2
+    // "...X...", ".XX.XX.", ".X.....", "..X.X..", "...X...", "..X.X..", "...O..." 7x7 =>3
     public static void main (String[] args){
         // initialize board
         int numberOfArgs = args.length;
@@ -105,16 +114,30 @@ public class Checker {
             // got stuck in one path (did not have opportunity to try other paths)
             while(steps<max_steps && (canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard)))
             {
-                if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
-                    moveLeft(aPlayer, bPlayers, checkerBoard);
-                    aPlayer.print();
-                    steps++;
-                }
-                if (canMoveTopRight(aPlayer, bPlayers, checkerBoard)) {
+
+                 if (canMoveTopRight(aPlayer, bPlayers, checkerBoard)) {
                     moveRight(aPlayer, bPlayers, checkerBoard);
                     aPlayer.print();
                     steps++;
+
+                    if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
+                        moveLeft(aPlayer, bPlayers, checkerBoard);
+                        aPlayer.print();
+                        steps++;
+                    }
                 }
+                else if (canMoveTopLeft(aPlayer, bPlayers, checkerBoard)) {
+                    moveLeft(aPlayer, bPlayers, checkerBoard);
+                    aPlayer.print();
+                    steps++;
+
+                    if (canMoveTopRight(aPlayer, bPlayers, checkerBoard)) {
+                        moveRight(aPlayer, bPlayers, checkerBoard);
+                        aPlayer.print();
+                        steps++;
+                    }
+                }
+                
             }   // end of while
         }  // end of if
         System.out.println("Steps: "+ steps ) ;
@@ -155,14 +178,10 @@ public class Checker {
         //
         if( (aPlayer.row-2)>=0 && (aPlayer.column-2)>=0 )
         {
-            //System.out.println("canMoveTopLeft: in boundary");
             if( ((currentBoard.get(aPlayer.row-1))[aPlayer.column-1])=='X')
             {
-                //System.out.println("canMoveTopLeft: find X, checking . ");
-                //System.out.println((checkerBoard.get(aPlayer.row-2))[aPlayer.column+2]);
                 if( ((currentBoard.get(aPlayer.row-2))[aPlayer.column-2])=='.')
                 {
-                     //System.out.println("canMoveTopLeft");
                      return true;
                 }
             }
@@ -173,22 +192,16 @@ public class Checker {
     // My mistake : there was some confusion between x and y, then the direction of y
     static boolean canMoveTopRight(Location aPlayer, ArrayList<Location> bPlayers, ArrayList <char[]>checkerBoard)
     {
-        // if top left of aPlayer is in boundary (after jump over);
-        // if there is an 'X' in the top left
+        // if top right of aPlayer is in boundary (after jump over);
+        // if there is an 'X' in the top right
         // if the spot after jump over is . (empty)
         //
-        //System.out.println("canMoveTopRight: beginning, aPlayer: ");
-        //System.out.println((checkerBoard.get(aPlayer.row))[aPlayer.column]);
         if( (aPlayer.row-2)>=0 && (aPlayer.column+2)<=(checkerBoard.size()-1) )
         {
-            //System.out.println("canMoveTopRight: in boundary");
             if( ((currentBoard.get(aPlayer.row-1))[aPlayer.column+1])=='X')
             {
-                //System.out.println("canMoveTopRight: find X, checking . ");
-                //System.out.println((checkerBoard.get(aPlayer.row-2))[aPlayer.column+2]);
                 if( ((currentBoard.get(aPlayer.row-2))[aPlayer.column+2])=='.')
                 {
-                    //System.out.println("canMoveTopRight: find .");
                     return true;
                 }
             }
