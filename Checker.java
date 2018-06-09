@@ -23,6 +23,7 @@ package com.uudaddy;
  * .O..
  *
  * 5x5  left 0; right 1
+ * this one won't expose the limitation of current algorithm (it returns 1 because it cannot go left the beginning)
  * XXXXX
  * ...X.
  * .X.X.
@@ -112,6 +113,7 @@ public class Checker {
         {
             // how to make sure we always try the largest capture...besides the max_steps below...the issue here is the aPlayer
             // got stuck in one path (did not have opportunity to try other paths)
+            // the canMoveLeft and canMoveRight will make aPlayer stuck at one spot, and not necessarily try all the other paths
             while(steps<max_steps && (canMoveTopLeft(aPlayer, bPlayers, checkerBoard) || canMoveTopRight(aPlayer, bPlayers, checkerBoard)))
             {
 
