@@ -1,3 +1,10 @@
+// some background for chain code image processing here:
+// http://www.ee.columbia.edu/~xlx/courses/ee4830-sp08/notes/lec10.pdf
+// The idea is to traverse the 2d array (in various directions) to get the shape of the image (boundary).
+// Each 1 is a pixel in the image
+// and note the direction from 0 to 7 stands for:
+// east, northeast, north, northwest, west, southwest, south, and southeast
+
 package com.uudaddy;
 
 import java.util.ArrayList;
