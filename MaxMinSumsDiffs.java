@@ -37,7 +37,18 @@ public class MaxMinSumsDiffs {
             remainingIntegers.add(Integer.parseInt( args[ii]));
         }
 
-        // Come up with the number combinations, even with a brute force way.
+
+        // Come up with the number combinations
+        // sort the numbers in descending order, pick number from neighboring numbers for thousandth digits
+        // compose the rest of numbers so that the big number gets small numbers, and put them in small to largest
+        // vice versa (the other way) for the small number, e.g, below it should be 7012 - 6543
+        // 
+        // 7 5 3 1
+        // 6 4 2 0
+
+        // 5 012
+        // 4 753
+
         // the thousand digit can be 1 to 7 (except 0)
         int number_1 = 0;
         int number_2 = 0;
@@ -45,15 +56,18 @@ public class MaxMinSumsDiffs {
         int number_1_thousand;
         int number_1_hundred;
 
-        for(int ii=0; ii<numberOfArgs; ii++) {
-            if( Integer.parseInt( args[ii])!=0) {
-                number_1_thousand = Integer.parseInt(args[ii]);
-                remainingIntegers.remove(args[ii]);
+        int ii=0;
+        for(ii=0; ii<numberOfArgs; ii++) {
+            Integer intNum = remainingIntegers.get(ii);
+            if( intNum.intValue() !=0) {
+                number_1_thousand = intNum;
+                remainingIntegers.remove(intNum);
 
-                if( (ii+1)<numberOfArgs ) {
-                    number_1_hundred = Integer.parseInt(args[ii + 1]);  // use remainingIntegers?
+                if( remainingIntegers.isEmpty() == false ) {
+                    number_1_hundred = remainingIntegers.get(0);  // use remainingIntegers?
                     remainingIntegers.remove(args[ii]);
                 }
+
             }
         }
     }

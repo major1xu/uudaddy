@@ -30,8 +30,7 @@ public class Parser {
                 System.out.println("line: " + line);
                 String[] country = line.split(cvsSplitBy);
                 System.out.println("Country.length: " + country.length );
-                System.out.println("Country [code= " + country[0] + " , name=" + country[1] + "]");
-
+                System.out.println("Log [time= " + country[0] + " , IP=" + country[1] + "]");
             }
 
         } catch (FileNotFoundException e) {
