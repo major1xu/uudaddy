@@ -30,16 +30,45 @@ public class MaxMinSumsDiffs {
         int numberOfArgs = args.length;
         System.out.println("numberOfArgs=" + numberOfArgs);
         ArrayList<Integer> remainingIntegers = new ArrayList<Integer>(numberOfArgs);
+        //Digit[] remainingDigits = new Digit[numberOfArgs];
 
         for(int ii=0; ii<numberOfArgs;ii++) {
             checkerBoard.add(Integer.parseInt( args[ii]) );
             System.out.println("Integer.parseInt( args[ii])=" + Integer.parseInt( args[ii]));
             remainingIntegers.add(Integer.parseInt( args[ii]));
+            //remainingDigits[ii]=new Digit(Integer.parseInt(args[ii]));
+        }
+        
+        // Come up with the number combinations
+        // sort the numbers in descending order, pick number from neighboring numbers for thousandth digits.
+
+        // https://stackoverflow.com/questions/14475556/how-to-sort-arraylist-of-objects
+        // descending order  - better way
+        Collections.sort(remainingIntegers, new Comparator<Integer>() {
+            @Override public int compare(Integer p1, Integer p2) {
+                int returnValue = 0;
+
+                if ((p1.intValue() - p2.intValue()) > 0) {
+                    return -1;
+                } else if ((p1.intValue() - p2.intValue()) == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        });
+
+        // http://www.mkyong.com/java/java-object-sorting-example-comparable-and-comparator/
+        // descending order
+        //Arrays.sort(remainingDigits);
+
+        System.out.println("After sorting:");
+        for(int ii=0; ii<numberOfArgs;ii++) {
+            System.out.println("remainingIntegers[ii]=" + remainingIntegers.get(ii));
+            //System.out.println("remainingDigits[ii]=" + remainingDigits[ii].getQuantity());
         }
 
-
-        // Come up with the number combinations
-        // sort the numbers in descending order, pick number from neighboring numbers for thousandth digits
+        //
         // compose the rest of numbers so that the big number gets small numbers, and put them in small to largest
         // vice versa (the other way) for the small number, e.g, below it should be 7012 - 6543
         // 
@@ -58,8 +87,8 @@ public class MaxMinSumsDiffs {
 
         int ii=0;
         for(ii=0; ii<numberOfArgs; ii++) {
-            Integer intNum = remainingIntegers.get(ii);
-            if( intNum.intValue() !=0) {
+            int intNum = remainingIntegers.get(ii);
+            if( intNum != 0) {
                 number_1_thousand = intNum;
                 remainingIntegers.remove(intNum);
 
