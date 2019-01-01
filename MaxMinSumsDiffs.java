@@ -77,6 +77,27 @@ public class MaxMinSumsDiffs {
         //int number_2 = 0;
         //int difference = 0;
         //int number_1_thousand=0;
+
+        boolean found_min_diff=false;
+        int min_diff=0;
+
+        int ii=0;
+        // here I need to rotate the digits, maybe I need to make copies for the list, so that every time I have fresh list
+
+        min_diff = findDiff(remainingIntegers, found_min_diff, ii);
+
+        // use remainingIntegersCopy: move first to the last
+        remainingIntegers = new ArrayList<Integer>(numberOfArgs);
+        for(ii=1; ii<numberOfArgs;ii++) {
+            remainingIntegers.add(remainingIntegersCopy.get(ii));
+        }
+        remainingIntegers.add(remainingIntegersCopy.get(0));
+
+        //int min_diff_2 = findDiff(remainingIntegers, found_min_diff, ii);
+    }
+
+    private static int findDiff(ArrayList<Integer> remainingIntegers, boolean found_min_diff, int ii) {
+        int number_1_thousand;
         int number_2_thousand=0;
         int number_1_hundred=0;
         int number_2_hundred=0;
@@ -84,23 +105,6 @@ public class MaxMinSumsDiffs {
         int number_2_tenth=0;
         int number_1_single=0;
         int number_2_single=0;
-        boolean found_min_diff=false;
-        int min_diff=0;
-
-        int ii=0;
-        // here I need to rotate the digits, maybe I need to make copies for the list, so that everytime I have fresh list
-
-        min_diff = findDiff(remainingIntegers, number_2_thousand, number_1_hundred, number_2_hundred, number_1_tenth,
-                number_2_tenth, number_1_single, number_2_single, found_min_diff, ii);
-
-        // remainingIntegersCopy
-        // move first to the last
-    }
-
-    private static int findDiff(ArrayList<Integer> remainingIntegers, int number_2_thousand, int number_1_hundred,
-                                int number_2_hundred, int number_1_tenth, int number_2_tenth, int number_1_single,
-                                int number_2_single, boolean found_min_diff, int ii) {
-        int number_1_thousand;
         int min_diff = 0;
         while(remainingIntegers.isEmpty()==false && found_min_diff==false) {
             Integer intNum = remainingIntegers.get(ii);
