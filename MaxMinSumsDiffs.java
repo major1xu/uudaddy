@@ -14,6 +14,36 @@ package com.uudaddy;
  * creative as human beings)
  *
  * Created by minjiexu on 10/17/18.
+ * Note the symmetry in the results
+ *
+ * number1=7012
+ number2=6543
+ min_diff=469
+ ======
+ number1=6012
+ number2=5743
+ min_diff=269
+ ======
+ number1=5012
+ number2=4763
+ min_diff=249
+ ======
+ number1=4012
+ number2=3765
+ min_diff=247
+ ======
+ number1=3014
+ number2=2765
+ min_diff=249
+ ======
+ number1=2034
+ number2=1765
+ min_diff=269
+ ======
+ number1=1234
+ number2=765
+ min_diff=469
+ ======
  */
 
 import java.util.*;
@@ -24,11 +54,11 @@ public class MaxMinSumsDiffs {
 
     public static void main (String[] args)
     {
-        System.out.println("Hello world");
+        //System.out.println("Hello world");
 
         // use an array to parse the arguments from command line (for example, 0, 1, 2,...7)
         int numberOfArgs = args.length;
-        System.out.println("numberOfArgs=" + numberOfArgs);
+        //System.out.println("numberOfArgs=" + numberOfArgs);
         ArrayList<Integer> remainingIntegers = new ArrayList<Integer>(numberOfArgs);
         ArrayList<Integer> remainingIntegersCopy = new ArrayList<Integer>(numberOfArgs);
 
@@ -55,48 +85,84 @@ public class MaxMinSumsDiffs {
         // descending order
         //Arrays.sort(remainingDigits);
 
-        System.out.println("After sorting:");
-        for(int ii=0; ii<numberOfArgs;ii++) {
+       // System.out.println("After sorting:");
+        int ii = 0;
+        for(ii=0; ii<numberOfArgs;ii++) {
             //System.out.println("remainingIntegers[ii]=" + remainingIntegers.get(ii));
             //System.out.println("remainingDigits[ii]=" + remainingDigits[ii].getQuantity());
         }
-        System.out.println("remainingIntegers.size()=" + remainingIntegers.size());
+        //System.out.println("remainingIntegers.size()=" + remainingIntegers.size());
+        
+        boolean found_min_diff=false;
+        int min_diff=0;
 
+        // here I need to rotate the digits, maybe I need to make copies for the list, so that every time I have fresh list
+
+        min_diff = findDiff(remainingIntegers, found_min_diff);
+
+        // use remainingIntegersCopy: move first to the last
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        //System.out.println("3: remainingIntegers.size()=" + remainingIntegers.size());
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_2 = findDiff(remainingIntegers, found_min_diff);
+
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_3 = findDiff(remainingIntegers, found_min_diff);
+
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_4 = findDiff(remainingIntegers, found_min_diff);
+
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_5 = findDiff(remainingIntegers, found_min_diff);
+
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_6 = findDiff(remainingIntegers, found_min_diff);
+
+        remainingIntegers = reCreateRemainingIntegerList(numberOfArgs, remainingIntegersCopy);
+        remainingIntegersCopy = reCreateRemainingIntegerListCopy(numberOfArgs, remainingIntegers, remainingIntegersCopy);
+        int min_diff_7 = findDiff(remainingIntegers, found_min_diff);
+    }
+
+    private static ArrayList<Integer> reCreateRemainingIntegerListCopy(int numberOfArgs, ArrayList<Integer> remainingIntegers, ArrayList<Integer> remainingIntegersCopy) {
+        int ii;
+        remainingIntegersCopy.clear();
+        remainingIntegersCopy = new ArrayList<Integer>(numberOfArgs);
+        for(ii=0; ii<numberOfArgs;ii++) {
+            remainingIntegersCopy.add(remainingIntegers.get(ii));
+            //System.out.println("remainingIntegersCopy[ii]=" + remainingIntegersCopy.get(ii));
+        }
+        return remainingIntegersCopy;
+    }
+
+    private static ArrayList<Integer> reCreateRemainingIntegerList(int numberOfArgs, ArrayList<Integer> remainingIntegersCopy) {
+        ArrayList<Integer> remainingIntegers;
+        int ii;
+        remainingIntegers = new ArrayList<Integer>(numberOfArgs);
+        //System.out.println("2: remainingIntegers.size()=" + remainingIntegers.size());
+
+        for(ii=1; ii<numberOfArgs;ii++) {
+            remainingIntegers.add(remainingIntegersCopy.get(ii));
+        }
+        remainingIntegers.add(remainingIntegersCopy.get(0));
+        return remainingIntegers;
+    }
+
+    private static int findDiff(ArrayList<Integer> remainingIntegers, boolean found_min_diff) {
         //
         // compose the rest of numbers so that the big number gets small numbers, and put them in small to largest
         // vice versa (the other way) for the small number, e.g, below it should be 7012 - 6543
-        // 
+        //
         // 7 5 3 1
         // 6 4 2 0
 
         // 5 012
         // 4 753
-
         // the thousand digit can be 1 to 7 (except 0)
-        //int number_1 = 0;
-        //int number_2 = 0;
-        //int difference = 0;
-        //int number_1_thousand=0;
 
-        boolean found_min_diff=false;
-        int min_diff=0;
-
-        int ii=0;
-        // here I need to rotate the digits, maybe I need to make copies for the list, so that every time I have fresh list
-
-        min_diff = findDiff(remainingIntegers, found_min_diff, ii);
-
-        // use remainingIntegersCopy: move first to the last
-        remainingIntegers = new ArrayList<Integer>(numberOfArgs);
-        for(ii=1; ii<numberOfArgs;ii++) {
-            remainingIntegers.add(remainingIntegersCopy.get(ii));
-        }
-        remainingIntegers.add(remainingIntegersCopy.get(0));
-
-        //int min_diff_2 = findDiff(remainingIntegers, found_min_diff, ii);
-    }
-
-    private static int findDiff(ArrayList<Integer> remainingIntegers, boolean found_min_diff, int ii) {
         int number_1_thousand;
         int number_2_thousand=0;
         int number_1_hundred=0;
@@ -106,6 +172,7 @@ public class MaxMinSumsDiffs {
         int number_1_single=0;
         int number_2_single=0;
         int min_diff = 0;
+        int ii = 0;
         while(remainingIntegers.isEmpty()==false && found_min_diff==false) {
             Integer intNum = remainingIntegers.get(ii);
             number_1_thousand = intNum;
@@ -158,7 +225,7 @@ public class MaxMinSumsDiffs {
             if( remainingIntegers.isEmpty() == false && found_min_diff==false) {
                 intNum = remainingIntegers.get(ii);
                 number_2_tenth = intNum;
-               // System.out.println("number_2_tenth=" + number_2_tenth);
+                //System.out.println("number_2_tenth=" + number_2_tenth);
                 remainingIntegers.remove(new Integer(intNum));
             }
 
@@ -175,7 +242,7 @@ public class MaxMinSumsDiffs {
             System.out.println("number1=" + number1);
             System.out.println("number2=" + number2);
             System.out.println("min_diff=" + min_diff);
-
+            System.out.println("======");
         }
         return min_diff;
     }
