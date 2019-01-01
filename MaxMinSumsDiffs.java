@@ -20,7 +20,7 @@ import java.util.*;
 
 public class MaxMinSumsDiffs {
 
-    static ArrayList <Integer>checkerBoard=new ArrayList<Integer>();
+    //static ArrayList <Integer>checkerBoard=new ArrayList<Integer>();
 
     public static void main (String[] args)
     {
@@ -35,9 +35,10 @@ public class MaxMinSumsDiffs {
         //Digit[] remainingDigits = new Digit[numberOfArgs];
 
         for(int ii=0; ii<numberOfArgs;ii++) {
-            checkerBoard.add(Integer.parseInt( args[ii]) );
+            //checkerBoard.add(Integer.parseInt( args[ii]) );
             //System.out.println("Integer.parseInt( args[ii])=" + Integer.parseInt( args[ii]));
             remainingIntegers.add(Integer.parseInt( args[ii]));
+            remainingIntegersCopy.add(Integer.parseInt( args[ii]));
             //remainingDigits[ii]=new Digit(Integer.parseInt(args[ii]));
         }
         
@@ -46,7 +47,9 @@ public class MaxMinSumsDiffs {
 
         // https://stackoverflow.com/questions/14475556/how-to-sort-arraylist-of-objects
         // descending order  - better way
+        // 7, 6, 5, 4, 3, 2, 1, 0
         Collections.sort(remainingIntegers, new IntegerComparator());
+        Collections.sort(remainingIntegersCopy, new IntegerComparator());
 
         // http://www.mkyong.com/java/java-object-sorting-example-comparable-and-comparator/
         // descending order
@@ -70,10 +73,10 @@ public class MaxMinSumsDiffs {
         // 4 753
 
         // the thousand digit can be 1 to 7 (except 0)
-        int number_1 = 0;
-        int number_2 = 0;
-        int difference = 0;
-        int number_1_thousand=0;
+        //int number_1 = 0;
+        //int number_2 = 0;
+        //int difference = 0;
+        //int number_1_thousand=0;
         int number_2_thousand=0;
         int number_1_hundred=0;
         int number_2_hundred=0;
@@ -85,6 +88,20 @@ public class MaxMinSumsDiffs {
         int min_diff=0;
 
         int ii=0;
+        // here I need to rotate the digits, maybe I need to make copies for the list, so that everytime I have fresh list
+
+        min_diff = findDiff(remainingIntegers, number_2_thousand, number_1_hundred, number_2_hundred, number_1_tenth,
+                number_2_tenth, number_1_single, number_2_single, found_min_diff, ii);
+
+        // remainingIntegersCopy
+        // move first to the last
+    }
+
+    private static int findDiff(ArrayList<Integer> remainingIntegers, int number_2_thousand, int number_1_hundred,
+                                int number_2_hundred, int number_1_tenth, int number_2_tenth, int number_1_single,
+                                int number_2_single, boolean found_min_diff, int ii) {
+        int number_1_thousand;
+        int min_diff = 0;
         while(remainingIntegers.isEmpty()==false && found_min_diff==false) {
             Integer intNum = remainingIntegers.get(ii);
             number_1_thousand = intNum;
@@ -99,6 +116,8 @@ public class MaxMinSumsDiffs {
             }
 
             if( remainingIntegers.isEmpty() == false && found_min_diff==false) {
+
+                // This is key
                 Collections.sort(remainingIntegers);
 
                 intNum = remainingIntegers.get(ii);
@@ -122,6 +141,8 @@ public class MaxMinSumsDiffs {
             }
 
             if( remainingIntegers.isEmpty() == false && found_min_diff==false) {
+
+                // This is key
                 Collections.sort(remainingIntegers, new IntegerComparator());
 
                 intNum = remainingIntegers.get(ii);
@@ -133,7 +154,7 @@ public class MaxMinSumsDiffs {
             if( remainingIntegers.isEmpty() == false && found_min_diff==false) {
                 intNum = remainingIntegers.get(ii);
                 number_2_tenth = intNum;
-                //System.out.println("number_2_tenth=" + number_2_tenth);
+               // System.out.println("number_2_tenth=" + number_2_tenth);
                 remainingIntegers.remove(new Integer(intNum));
             }
 
@@ -150,7 +171,9 @@ public class MaxMinSumsDiffs {
             System.out.println("number1=" + number1);
             System.out.println("number2=" + number2);
             System.out.println("min_diff=" + min_diff);
+
         }
+        return min_diff;
     }
 
     private static class IntegerComparator implements Comparator<Integer> {

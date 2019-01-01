@@ -26,7 +26,6 @@ public class Parser {
             br = new BufferedReader(new FileReader(csvFile));
             while ((line = br.readLine()) != null) {
 
-                // use comma as separator
                 System.out.println("line: " + line);
                 String[] country = line.split(cvsSplitBy);
                 System.out.println("Country.length: " + country.length );
