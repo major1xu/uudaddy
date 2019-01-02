@@ -14,36 +14,20 @@ package com.uudaddy;
  * creative as human beings)
  *
  * Created by minjiexu on 10/17/18.
+ *
+ * run with the following arguments: 0 1 2 3 4 5 6 7
+ *
  * Note the symmetry in the results
  *
- * number1=7012
- number2=6543
- min_diff=469
- ======
- number1=6012
- number2=5743
- min_diff=269
- ======
- number1=5012
- number2=4763
- min_diff=249
- ======
- number1=4012
- number2=3765
- min_diff=247
- ======
- number1=3014
- number2=2765
- min_diff=249
- ======
- number1=2034
- number2=1765
- min_diff=269
- ======
- number1=1234
- number2=765
- min_diff=469
- ======
+ *
+ number1=7012, number2=6543, min_diff=469
+ number1=6012, number2=5743, min_diff=269
+ number1=5012, number2=4763, min_diff=249
+ number1=4012, number2=3765, min_diff=247
+ number1=3014, number2=2765, min_diff=249
+ number1=2034, number2=1765, min_diff=269
+ number1=1234, number2=765, min_diff=469
+ *
  */
 
 import java.util.*;
@@ -239,10 +223,9 @@ public class MaxMinSumsDiffs {
             int number1=number_1_thousand*1000+number_1_hundred*100+number_1_tenth*10+number_1_single;
             int number2=number_2_thousand*1000+number_2_hundred*100+number_2_tenth*10+number_2_single;
             min_diff=number1-number2;
-            System.out.println("number1=" + number1);
-            System.out.println("number2=" + number2);
-            System.out.println("min_diff=" + min_diff);
-            System.out.println("======");
+            System.out.print(/*"number1=" +*/ number1);
+            System.out.print(", "/*number2="*/ + number2);
+            System.out.println(", "/*min_diff="*/ + min_diff);
         }
         return min_diff;
     }
