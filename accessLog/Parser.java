@@ -28,8 +28,13 @@ public class Parser {
 
                 System.out.println("line: " + line);
                 String[] country = line.split(cvsSplitBy);
-                System.out.println("Country.length: " + country.length );
-                System.out.println("Log [time= " + country[0] + " , IP=" + country[1] + "]");
+                //System.out.println("Country.length: " + country.length );
+                System.out.println("time: " + country[0]);
+                System.out.println("IP: " + country[1]);
+                System.out.println("method: " + country[2]);
+                System.out.println( "sstatusCode: " + country[3]);
+                System.out.println("browser: " + country[4]);
+                System.out.println();
             }
 
         } catch (FileNotFoundException e) {
