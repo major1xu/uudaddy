@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
+
 
 /**
  * Created by minjiexu on 11/19/18.
@@ -13,6 +15,8 @@ import java.io.IOException;
  */
 public class Parser {
     public static void main(String[] args) {
+        connectToDB();
+
 
         String csvFile = "/Users/minjiexu/Downloads/Java_MySQL_Test/access_0.log";
         BufferedReader br = null;
@@ -29,10 +33,10 @@ public class Parser {
                 System.out.println("line: " + line);
                 String[] country = line.split(cvsSplitBy);
                 //System.out.println("Country.length: " + country.length );
-                System.out.println("time: " + country[0]);
+                System.out.println("startDate: " + country[0]);
                 System.out.println("IP: " + country[1]);
                 System.out.println("method: " + country[2]);
-                System.out.println( "sstatusCode: " + country[3]);
+                System.out.println( "statusCode: " + country[3]);
                 System.out.println("browser: " + country[4]);
                 System.out.println();
             }
@@ -51,5 +55,20 @@ public class Parser {
             }
         }
 
+    }
+
+    private static void connectToDB() {
+        // https://www.javatpoint.com/example-to-connect-to-the-mysql-database
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/turtle","turtledev","!doris2MJ");
+//here sonoo is database name, root is username and password
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from AccessLog");
+            while(rs.next())
+                System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+            con.close();
+        }catch(Exception e){ System.out.println(e);}
     }
 }
