@@ -1,4 +1,4 @@
-package com.uudaddy.CodeExcercise;
+package com.uudaddy.CodeExercise;
 
 import java.util.ArrayList;
 import java.util.HashMap;

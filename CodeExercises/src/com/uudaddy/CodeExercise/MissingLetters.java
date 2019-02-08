@@ -1,4 +1,4 @@
-package com.uudaddy.CodeExcercise;
+package com.uudaddy.CodeExercise;
 
 import java.util.Collections;
 import java.util.HashSet;

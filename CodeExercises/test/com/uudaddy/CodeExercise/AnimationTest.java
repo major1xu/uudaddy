@@ -1,4 +1,4 @@
-package com.uudaddy.CodeExcercise;
+package com.uudaddy.CodeExercise;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.uudaddy.CodeExcercise.Animation;
+import com.uudaddy.CodeExercise.Animation;
 
 /*
 Examples: (Note that in the examples below, the double quotes should not be considered part of the input or output strings.) 

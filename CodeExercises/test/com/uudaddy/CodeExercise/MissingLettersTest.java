@@ -1,10 +1,10 @@
-package com.uudaddy.CodeExcercise;
+package com.uudaddy.CodeExercise;
 
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.uudaddy.CodeExcercise.MissingLetters;
+import com.uudaddy.CodeExercise.MissingLetters;
 
 
 public class MissingLettersTest {
