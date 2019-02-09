@@ -60,7 +60,7 @@ public class LogParser {
     private static void connectToDB() {
         // https://www.javatpoint.com/example-to-connect-to-the-mysql-database
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/turtle","turtledev","!doris2MJ");
 //here sonoo is database name, root is username and password
