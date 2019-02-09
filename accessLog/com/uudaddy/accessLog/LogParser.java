@@ -13,7 +13,7 @@ import java.sql.*;
  * https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
  * 
  */
-public class Parser {
+public class LogParser {
     public static void main(String[] args) {
         connectToDB();
 
