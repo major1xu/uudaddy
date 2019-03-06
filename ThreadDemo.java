@@ -1,4 +1,8 @@
 // ThreadDemo.java
+
+package com.uudaddy;
+
+
 class ThreadDemo
 {
     public static void main (String [] args)
