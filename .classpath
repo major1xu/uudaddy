@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="accessLog"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/Users/minjiexu/Downloads/h2/bin/h2-1.4.196.jar"/>
-	<classpathentry kind="output" path="CodeExercises/bin"/>
-</classpath>
