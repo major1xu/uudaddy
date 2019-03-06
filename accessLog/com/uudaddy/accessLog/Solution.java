@@ -31,7 +31,7 @@ public class Solution {
         //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
-
+/*
         List<String> arrTemp = new ArrayList<>();
 
         IntStream.range(0, arrCount).forEach(i -> {
@@ -55,6 +55,7 @@ public class Solution {
         //bufferedWriter.newLine();
 
         bufferedReader.close();
+*/
         //bufferedWriter.close();
     }
 }
